@@ -16,7 +16,7 @@ public class Household {
         //possibly based on week?
 
         for(int i = 0; i < farmerList.size(); i++){
-            foodStores -= 10; //units of food need to be decided
+            foodStores -= 1; //units of food need to be decided
         }
     }
     public void sow(){
@@ -29,6 +29,16 @@ public class Household {
         for(int i = 0; i < farmerList.size(); i++){
             //tbd
         }
+        //temporarily
+        foodStores += 20;
+    }
+
+    public void plough(){
+        //dependent on large landowner capital
+    }
+
+    public void addFarmers(Farmer f){
+        farmerList.add(f);
     }
 
 
