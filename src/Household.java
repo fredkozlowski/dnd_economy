@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Household {
     int id;
@@ -20,10 +21,11 @@ public class Household {
 
     public void consumeFood(){
         //week is basic unit of time
-
-        for(int i = 0; i < farmerList.size(); i++){
-            foodStores -= 1; //units of food need to be decided
-            //also a calorie system probably needs to be implemented to cover diff b/w barley and wheat
+        if(foodStores > 0) {
+            for (int i = 0; i < farmerList.size(); i++) {
+                foodStores -= 1; //units of food need to be decided
+                //also a calorie system probably needs to be implemented to cover diff b/w barley and wheat
+            }
         }
     }
     //using a 3 crop rotation system
@@ -34,12 +36,12 @@ public class Household {
         }
     }
 
-    public void sowSpring(){
+    public double sowSpring(){
         //sowing barley/oats
         //should the total amount of crop be expressed in calories or weight?
         //regional variation in crop sown?
         int laborPool = 0;
-        double laborReq = (int) 0.3 * fieldSizes.get(0); //placeholder value
+        double laborReq = (int) Math.round(0.3 * fieldSizes.get(0)); //placeholder value
         for(Farmer temp : farmerList){
             if(temp.labor >= 5) { //5 is labor cost
                 laborPool += 5;
@@ -51,24 +53,29 @@ public class Household {
             }
         }
         //need to determine labor per field
+        //calculate proportion of work that can be completed
         if(laborPool >= laborReq){
-            //tbd
+            return 1.0;
         }
         else{
-            //calculate proportion of work that can be completed?? Or would they just sow later??
+            return laborReq / (double) laborPool;
         }
     }
 
-    public void harvest(){
-        int harvestedFood = 0;
+    public void harvest(double fieldCoeff){ //only implemented for one field, possibly split into 2 harvests?
+        Random random = new Random();
+        double weather = random.nextGaussian() * 0.2 + 1; //replace with more realistic distribution later
+        int harvestedCrops = 0;
         for(int i = 0; i < fieldSizes.size(); i++){
             if(i == cropRotation)
                 continue;
-            foodStores += fieldSizes.get(i) * 10;
+            harvestedCrops += (int) Math.round(fieldSizes.get(i) * 10 * weather * fieldCoeff);
         }
+        harvestedCrops = (int) Math.round(0.9 * harvestedCrops); //Church tithes
+        foodStores += harvestedCrops;
     }
 
-    public void plough(){
+    public void plow(){
         //dependent on large landowner capital
     }
 
