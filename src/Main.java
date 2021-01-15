@@ -1,5 +1,6 @@
 import java.util.concurrent.TimeUnit;
 
+
 public class Main {
     public static void main(String[] args){
         //creating a household and populating with farmers
@@ -10,13 +11,15 @@ public class Main {
         test.addFarmers(b);
 
 
-        //time loop
+        //loop for 1 year (52 weeks)
+        System.out.print("Food Stores");
         for(int i = 0; i <= 52; i++){
             //ghetto display bar, didn't want to introduce dependency this early
-            System.out.print("Food Stores");
-            for(int j = 0; j <= test.foodStores; j++)
-                System.out.print("*");
+            System.out.print(i);
+            System.out.print(" week: ");
+            System.out.print(test.foodStores);
             System.out.println();
+
             /*
             try {
                 TimeUnit.SECONDS.sleep(1); //so that you can see display in real time
