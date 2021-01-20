@@ -37,13 +37,13 @@ public class Main {
             //actions
             test.consumeFood();
             if(i == 12)
-                test.plough();
+                test.plow();
             if(i == 14)
                 test.sowSpring();
             if(i == 36)
-                test.harvest();
+                test.harvest(2);
             //renewing labor pool
-            for(Farmer temp : test.farmerList){
+            for(Farmer temp : test.farmerList) {
                 temp.renewLabor();
             }
         }
