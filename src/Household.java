@@ -83,4 +83,17 @@ public class Household {
         farmerList.add(f);
     }
 
+    public void starvation(){
+        //to model starvation, give a 1% chance of dying per week to everyone
+        //later change to give children and elderly higher death chance
+        for(Farmer f : farmerList){
+            double rand = Math.random();
+            System.out.println(rand);
+            if(rand < 0.01){
+                farmerList.remove(f);
+                System.out.println("Farmer " + f.id + " has died");
+            }
+        }
+    }
+
 }

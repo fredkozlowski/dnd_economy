@@ -13,19 +13,15 @@ public class Main {
             for(int week = 0; week <= 52; week++) {
                 //ghetto display bar, didn't want to introduce dependency this early
                 System.out.print("Food Stores ");
-                if(test.foodStores <= 0)
+                if(test.foodStores <= 0) {
+                    test.starvation();
                     System.out.print("Starvation");
+                }
                 else {
                     for (int j = 0; j <= test.foodStores; j++)
                         System.out.print("*");
                 }
                 System.out.println();
-                /*
-                try {
-                    TimeUnit.SECONDS.sleep(1); //so that you can see display in real time
-                }
-                catch(InterruptedException ex){}
-                 */
 
                 //actions
                 test.consumeFood();
