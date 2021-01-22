@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.concurrent.TimeUnit;
 import java.util.*;
 
 public class Main {
@@ -17,32 +16,39 @@ public class Main {
         //going to label the week, so initialize the string here
         String weekName = "";
         Vector<Integer> foodStoreList = new Vector<Integer>(53);
+
+        //quick fix to enable start with winter wheat already sown
+        test.plow(test.fields.get(1));
+        test.sow(test.fields.get(1), Crops.Wheat);
+
         for(int i = 0; i <= 52; i++){
             //ghetto display table, cuz f***
-            weekName = " week" + i + ' ';
+            weekName = " Week " + i + ' ';
             System.out.print(weekName);
             System.out.print(test.foodStores);
             foodStoreList.add(test.foodStores);
             System.out.println();
-            /*
-            try {
-                TimeUnit.SECONDS.sleep(1); //so that you can see display in real time
-            }
-            catch(InterruptedException ex){}
-             */
 
             //actions
             test.consumeFood();
-            if(i == 12)
-                test.plow();
+            if(i == 12) {
+                test.plow(test.fields.get(0));
+                test.plow(test.fields.get(1));
+            }
             if(i == 14)
-                test.sowSpring();
+                test.sow(test.fields.get(0), Crops.Barley); //spring barley
             if(i == 36)
-                test.harvest(2);
+                test.harvest(test.fields.get(0));
+            if(i == 38)
+                test.harvest(test.fields.get(1));
+            if(i == 40)
+                test.sow(test.fields.get(1), Crops.Wheat); //winter wheat
             //renewing labor pool
             for(Farmer temp : test.farmerList) {
                 temp.renewLabor();
             }
+            if(test.foodStores < 0)
+                test.starvation();
         }
         //generates a bar graph object, and the following functions are display parameters
         DisplayFoodStores_Bar example = new DisplayFoodStores_Bar("plot of food stored", foodStoreList);

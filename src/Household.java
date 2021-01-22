@@ -5,18 +5,26 @@ public class Household {
     int id;
     int foodStores;
     ArrayList<Farmer> farmerList; //refactor to be person list, with different types inside
-    ArrayList<Integer> fieldSizes; //unit tbd
-    int cropRotation; //ranges from 0 to 2 and is index of fallow field in fieldSizes array
+    ArrayList<Field> fields; //unit tbd
+    /*int cropRotation; //ranges from 0 to 2 and is index of fallow field in fieldSizes array
                       //the next will be spring sowing and after winter sowing, will loop over
+     */
 
-    public Household(int id, int foodStores, int field1, int field2, int field3){
+
+    public Household(int id, int foodStores, int field1Size, int field2Size, int field3Size){
         this.id = id;
         this.foodStores = foodStores;
         this.farmerList = new ArrayList<>();
-        this.fieldSizes = new ArrayList<>();
-        fieldSizes.add(field1);
-        fieldSizes.add(field2);
-        fieldSizes.add(field3);
+        this.fields = new ArrayList<>();
+        Field field1 = new Field();
+        field1.size = field1Size;
+        Field field2 = new Field();
+        field2.size = field2Size;
+        Field field3 = new Field();
+        field3.size = field3Size;
+        fields.add(field1);
+        fields.add(field2);
+        fields.add(field3);
     }
 
     public void consumeFood(){
@@ -30,18 +38,12 @@ public class Household {
     }
     //using a 3 crop rotation system
 
-    public void sowWinter(){
-        for(int i = 0; i < farmerList.size(); i++){
-            //tbd
-        }
-    }
-
-    public double sowSpring(){
-        //sowing barley/oats
+    public void sow(Field field, Crops crop){
         //should the total amount of crop be expressed in calories or weight?
         //regional variation in crop sown?
+        field.type = crop;
         int laborPool = 0;
-        double laborReq = (int) Math.round(0.3 * fieldSizes.get(0)); //placeholder value
+        double laborReq = (int) Math.round(0.3 * field.size); //placeholder value
         for(Farmer temp : farmerList){
             if(temp.labor >= 5) { //5 is labor cost
                 laborPool += 5;
@@ -54,29 +56,32 @@ public class Household {
         }
         //need to determine labor per field
         //calculate proportion of work that can be completed
+        //this is the field usage calculation
         if(laborPool >= laborReq){
-            return 1.0;
+            field.fieldUsage = 1.0;
         }
         else{
-            return laborReq / (double) laborPool;
+            field.fieldUsage = laborReq / (double) laborPool;
         }
     }
 
-    public void harvest(double fieldCoeff){ //only implemented for one field, possibly split into 2 harvests?
+    public void harvest(Field field){
+        //only implemented for one field, possibly split into 2 harvests?
         Random random = new Random();
         double weather = random.nextGaussian() * 0.2 + 1; //replace with more realistic distribution later
         int harvestedCrops = 0;
-        for(int i = 0; i < fieldSizes.size(); i++){
-            if(i == cropRotation)
-                continue;
-            harvestedCrops += (int) Math.round(fieldSizes.get(i) * 10 * weather * fieldCoeff); //fieldCoeff is field quality
-        }
+        harvestedCrops += (int) Math.round(field.size * 10 * weather * field.fieldUsage * field.fertility);
         harvestedCrops = (int) Math.round(0.9 * harvestedCrops); //Church tithes
         foodStores += harvestedCrops;
     }
 
-    public void plow(){
+    public void plow(Field field){
         //dependent on large landowner capital
+        //possibly put manuring under this function
+
+        Random random = new Random();
+        double fertility = random.nextGaussian() * 0.2 + 1; //replace with more realistic distribution later
+        field.fertility = fertility;
     }
 
     public void addFarmers(Farmer f){

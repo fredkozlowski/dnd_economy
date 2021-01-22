@@ -6,3 +6,4 @@ Open questions
 - How best to model the inefficiency in trade? Merchants visited infrequently and markets were small
 - What were large landowners likely to be farming. What population did the manor usually contain?
 - How did the process of plowing actually work? What downsides were there to plowing off peak? What if you plowed without a plow team?
+- Would 3 field crop rotation fields be equivalent size?

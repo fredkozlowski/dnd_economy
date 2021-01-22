@@ -1,4 +1,6 @@
 public class Field {
-    Crops usage;
+    Crops type;
     int size;
+    double fieldUsage;
+    double fertility;
 }

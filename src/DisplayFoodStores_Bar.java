@@ -2,6 +2,8 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -9,6 +11,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.util.Vector;
 
 public class DisplayFoodStores_Bar extends JFrame {
@@ -27,6 +30,10 @@ public class DisplayFoodStores_Bar extends JFrame {
                 PlotOrientation.VERTICAL,
                 true,true,false
         );
+        CategoryPlot p = chart.getCategoryPlot();
+        CategoryAxis axis = p.getDomainAxis();
+        Font font = new Font("Dialog", Font.PLAIN, 9);
+        axis.setTickLabelFont(font);
         ChartPanel panel=new ChartPanel(chart);
         setContentPane(panel);
     }
