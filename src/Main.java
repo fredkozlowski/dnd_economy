@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 import java.util.*;
 
-
-
 public class Main {
     public static void main(String[] args) {
         //creating a household and populating with farmers
@@ -12,7 +10,6 @@ public class Main {
         Farmer b = new Farmer(11);
         test.addFarmers(a);
         test.addFarmers(b);
-
 
         //loop for 1 year (52 weeks)
         System.out.print("Food Stores");

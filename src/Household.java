@@ -69,7 +69,7 @@ public class Household {
         for(int i = 0; i < fieldSizes.size(); i++){
             if(i == cropRotation)
                 continue;
-            harvestedCrops += (int) Math.round(fieldSizes.get(i) * 10 * weather * fieldCoeff);
+            harvestedCrops += (int) Math.round(fieldSizes.get(i) * 10 * weather * fieldCoeff); //fieldCoeff is field quality
         }
         harvestedCrops = (int) Math.round(0.9 * harvestedCrops); //Church tithes
         foodStores += harvestedCrops;
@@ -95,5 +95,4 @@ public class Household {
             }
         }
     }
-
 }

@@ -11,7 +11,6 @@ import javax.swing.*;
 
 import java.util.Vector;
 
-
 public class DisplayFoodStores_Bar extends JFrame {
 
     //build the chart
