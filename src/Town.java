@@ -29,6 +29,10 @@ public class Town {
                 Farmer Fred = new Farmer(j); //Fred is just a variable, nobody important....not yet
                 aHouse.addFarmers(Fred);
             }
+
+            //initialize the fields by doing actions
+            aHouse.plow(aHouse.fields.get(1));
+            aHouse.sow(aHouse.fields.get(1), Crops.Wheat);
         }
     }
 
@@ -36,7 +40,12 @@ public class Town {
         for(int i = 0; i < householdList.size(); i++) {
             System.out.println("Household: " + householdList.get(i).id);
             for (int j = 0; j < 3; j++) {
-                System.out.print(" field" + (j+1) + ": " + householdList.get(i).fieldSizes.get(j));
+                Field oneOfTheFields = householdList.get(i).fields.get(j);
+                System.out.print(" field" + (j+1) + ": ");
+                System.out.print("size: "+ oneOfTheFields.size);
+                System.out.print(" crop: "+ oneOfTheFields.type);
+                System.out.print(" use: "+ oneOfTheFields.fieldUsage);
+                System.out.println(" fert: "+ oneOfTheFields.fertility);
             }
             System.out.println(" foodstored: " + householdList.get(i).foodStores);
             System.out.print(" Farmers:");
@@ -58,9 +67,38 @@ public class Town {
             if(i == 14)
                 town_sow("spring");
             if(i == 36)
+                town_harvest(0);
+            if(i == 38)
                 town_harvest(1);
+            if(i == 40)
+                town_sow("winter");
             //renewing labor pool
             renewLaborForAllFarmers(); //UNIONIZE_THE_WORKERS jk we feudalistic, increase the tithe i want a new carpet
+            //NEED TO MAKE A STARVATION FUNCTION
+
+
+            //this is the code in main i just adpated the action to apply to the whole village
+            //test.consumeFood();
+            /*
+            if(i == 12) {
+                test.plow(test.fields.get(0));
+                test.plow(test.fields.get(1));
+            }
+            if(i == 14)
+                test.sow(test.fields.get(0), Crops.Barley); //spring barley
+            if(i == 36)
+                test.harvest(test.fields.get(0));
+            if(i == 38)
+                test.harvest(test.fields.get(1));
+            if(i == 40)
+                test.sow(test.fields.get(1), Crops.Wheat); //winter wheat
+            //renewing labor pool
+            for(Farmer temp : test.farmerList) {
+                temp.renewLabor();
+            }
+            if(test.foodStores < 0)
+                test.starvation();
+             */
         }
     }
 
@@ -72,20 +110,40 @@ public class Town {
     }
     private void town_plow(){
         for(int i = 0; i < householdList.size(); i++){
-            householdList.get(i).plow();
+            householdList.get(i).plow(householdList.get(i).fields.get(0));
+            householdList.get(i).plow(householdList.get(i).fields.get(1));
+
+            /*analogous to:
+                house1.plow(house1.fields.get(0));
+                house1.plow(house1.fields.get(1));
+             */
         }
     }
     private void town_sow(String season){
+        //The season determines what field and crop will be sowed
         if(season == "spring") {
             for (int i = 0; i < householdList.size(); i++) {
-                householdList.get(i).sowSpring();
+                householdList.get(i).sow(householdList.get(i).fields.get(0), Crops.Barley);
+
+                /*analogous to:
+                house1.sow(house1.fields.get(0), Crops.Barley);
+                */
+            }
+        }
+        if( season == "winter"){
+            for (int i = 0; i < householdList.size(); i++) {
+                householdList.get(i).sow(householdList.get(i).fields.get(1), Crops.Wheat);
             }
         }
         //FILL IN THE OTHER SEASONS
     }
-    private void town_harvest(int fieldcoeff){ //we should add a harvest festival feature; everyone loves a good party
+    private void town_harvest(int thisField){ //we should add a harvest festival feature; everyone loves a good party
         for(int i = 0; i < householdList.size(); i++){
-            householdList.get(i).harvest(fieldcoeff);
+            householdList.get(i).harvest(householdList.get(i).fields.get(thisField));
+
+            /*analogous to:
+              house1.harvest(house1.fields.get(0)); //assuming thisField == 0
+            */
         }
     }
     private void renewLaborForAllFarmers(){

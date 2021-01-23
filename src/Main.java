@@ -4,12 +4,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         //creating a household and populating with farmers
-        Household test = new Household(1, 100, 5, 7, 2);
+        Household test = new Household(1, 10, 5, 7, 2);
         Farmer a = new Farmer(10);
         Farmer b = new Farmer(11);
         test.addFarmers(a);
         test.addFarmers(b);
-
+        /*
         //Testing out town stuff
         Town theTown = new Town(1,15);
         theTown.AnnualTownFoodConsumption();
@@ -25,6 +25,7 @@ public class Main {
         System.out.println("Town Stats After: ");
         System.out.println();
         theTown.gimmieTheTownFax();
+         */
 
         //loop for 1 year (52 weeks)
         //going to label the week, so initialize the string here
