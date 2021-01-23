@@ -12,7 +12,7 @@ public class Town {
         this.id = id;
         this.householdList = new ArrayList<>();
 
-        int foodStore = 0; //the initial amount of food stored in each household
+        int foodStore = 100; //the initial amount of food stored in each household
 
         //create a bunch of household, household variables right now are asserted randomly
         for(int i = 0; i < numHouseholds; i++){
@@ -41,11 +41,13 @@ public class Town {
             System.out.println("Household: " + householdList.get(i).id);
             for (int j = 0; j < 3; j++) {
                 Field oneOfTheFields = householdList.get(i).fields.get(j);
+                /*
                 System.out.print(" field" + (j+1) + ": ");
                 System.out.print("size: "+ oneOfTheFields.size);
                 System.out.print(" crop: "+ oneOfTheFields.type);
                 System.out.print(" use: "+ oneOfTheFields.fieldUsage);
                 System.out.println(" fert: "+ oneOfTheFields.fertility);
+                */
             }
             System.out.println(" foodstored: " + householdList.get(i).foodStores);
             System.out.print(" Farmers:");

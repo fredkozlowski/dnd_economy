@@ -29,12 +29,12 @@ public class Household {
 
     public void consumeFood(){
         //week is basic unit of time
-        if(foodStores > 0) {
+        //if(foodStores > 0) {
             for (int i = 0; i < farmerList.size(); i++) {
                 foodStores -= 1; //units of food need to be decided
                 //also a calorie system probably needs to be implemented to cover diff b/w barley and wheat
             }
-        }
+        //}
     }
     //using a 3 crop rotation system
 

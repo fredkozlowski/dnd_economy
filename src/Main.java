@@ -9,7 +9,7 @@ public class Main {
         Farmer b = new Farmer(11);
         test.addFarmers(a);
         test.addFarmers(b);
-        /*
+
         //Testing out town stuff
         Town theTown = new Town(1,15);
         theTown.AnnualTownFoodConsumption();
@@ -25,26 +25,28 @@ public class Main {
         System.out.println("Town Stats After: ");
         System.out.println();
         theTown.gimmieTheTownFax();
-         */
+
 
         //loop for 1 year (52 weeks)
         //going to label the week, so initialize the string here
         String weekName = "";
         //vector to store the foodstored in the test household and passed to the plotting class
         Vector<Integer> foodStoreList = new Vector<Integer>(53);
-        //System.out.println("Food Stores");
 
         //quick fix to enable start with winter wheat already sown
         test.plow(test.fields.get(1));
         test.sow(test.fields.get(1), Crops.Wheat);
 
+        //System.out.println("Food Stores");
         for(int i = 0; i <= 52; i++){
             //ghetto display table, cuz f***
+            /*
             weekName = " week" + i + ' ';
             System.out.print(weekName);
             System.out.print(test.foodStores);
             foodStoreList.add(test.foodStores);
             System.out.println();
+            */
             /*
             try {
                 TimeUnit.SECONDS.sleep(1); //so that you can see display in real time
@@ -70,8 +72,8 @@ public class Main {
             for(Farmer temp : test.farmerList) {
                 temp.renewLabor();
             }
-            if(test.foodStores < 0)
-                test.starvation();
+            //if(test.foodStores < 0)
+                //test.starvation();
         }
         /*
         //generates a bar graph object, and the following functions are display parameters
