@@ -41,13 +41,13 @@ public class Town {
             System.out.println("Household: " + householdList.get(i).id);
             for (int j = 0; j < 3; j++) {
                 Field oneOfTheFields = householdList.get(i).fields.get(j);
-                /*
+
                 System.out.print(" field" + (j+1) + ": ");
                 System.out.print("size: "+ oneOfTheFields.size);
                 System.out.print(" crop: "+ oneOfTheFields.type);
                 System.out.print(" use: "+ oneOfTheFields.fieldUsage);
                 System.out.println(" fert: "+ oneOfTheFields.fertility);
-                */
+
             }
             System.out.println(" foodstored: " + householdList.get(i).foodStores);
             System.out.print(" Farmers:");
@@ -75,7 +75,7 @@ public class Town {
             if(i == 40)
                 town_sow("winter");
             //renewing labor pool
-            renewLaborForAllFarmers(); //UNIONIZE_THE_WORKERS jk we feudalistic, increase the tithe i want a new carpet
+            town_renewLaborForAllFarmers(); //UNIONIZE_THE_WORKERS jk we feudalistic, increase the tithe i want a new carpet
             //NEED TO MAKE A STARVATION FUNCTION
 
 
@@ -112,7 +112,7 @@ public class Town {
     }
     private void town_plow(){
         for(int i = 0; i < householdList.size(); i++){
-            householdList.get(i).plow(householdList.get(i).fields.get(0));
+            householdList.get(i).plow(householdList.get(i).fields.get(0)); // !!! the field being plowed changes
             householdList.get(i).plow(householdList.get(i).fields.get(1));
 
             /*analogous to:
@@ -123,10 +123,10 @@ public class Town {
     }
     private void town_sow(String season){
         //The season determines what field and crop will be sowed
-        if(season == "spring") {
+        if(season == "spring") { // !!! create an enum for seasons
             for (int i = 0; i < householdList.size(); i++) {
                 householdList.get(i).sow(householdList.get(i).fields.get(0), Crops.Barley);
-
+                                        // !!! fields being sowed may change
                 /*analogous to:
                 house1.sow(house1.fields.get(0), Crops.Barley);
                 */
@@ -148,7 +148,7 @@ public class Town {
             */
         }
     }
-    private void renewLaborForAllFarmers(){
+    private void town_renewLaborForAllFarmers(){
         for(int i = 0; i < householdList.size(); i++) {
             for (int k = 0; k < householdList.get(i).farmerList.size(); k++) {
                 householdList.get(i).farmerList.get(k).renewLabor();
@@ -159,7 +159,7 @@ public class Town {
     public ArrayList<Household> identifyStarvation(){ //identifies the households that are starving
         ArrayList<Household> starving = new ArrayList<>();
         for(int i = 0; i < householdList.size(); i++){
-            if(householdList.get(i).foodStores < 0){
+            if(householdList.get(i).foodStores == 0){
                 starving.add(householdList.get(i));
             }
         }
@@ -194,11 +194,11 @@ public class Town {
         //identify starvation
         ArrayList<Household> thePoors = identifyStarvation();
         int food_theOnePercent = 0; //the largest foodstore in town
-        int food_oneOfThePoors = 0; //the foodstore of one of the starving
+        int numOfFarmers = 0; //number of farmers in a household; a variable we'll use later
         int mostFood = 0; //the index of the household with the most food stored
-        int leastStarving = 0; //the index of the household with the smallest magnitude below 0
         int numTimestoRepeat = thePoors.size();
 
+        /* //old algorithm i'll leave it here for now i guess...
         //loop through the list of starving households
         for(int i = 0; i < numTimestoRepeat; i++){
             //find the max amount from the non-starving
@@ -217,6 +217,29 @@ public class Town {
                 householdList.get(mostFood).foodStores += food_oneOfThePoors;
                 thePoors.get(leastStarving).foodStores = 0;
                 thePoors.remove(leastStarving);
+            }
+        }
+        */
+
+        //loop through the list of starving households
+        for(int i = 0; i < numTimestoRepeat; i++){
+            //find the max amount from the non-starving
+            mostFood = indexMaxFoodstore(householdList);
+            food_theOnePercent = householdList.get(mostFood).foodStores;
+            System.out.println("Wealthy Household: " + householdList.get(mostFood).id);
+            System.out.println(" foodstored: " + householdList.get(mostFood).foodStores);
+            System.out.println("Poor Household: " + thePoors.get(i).id);
+            System.out.println(" foodstored: " + thePoors.get(i).foodStores);
+            //check if the highest household is able to fill the deficit
+            if(food_theOnePercent >= 50){
+                //***using 50 as placeholder, assuming a household with less than 50 wouldn't be willing to share
+                //***we can make a more sophisticated  model that looks at the the projected food use per household
+
+                // update the foodstore values
+                    //subtract the amount of food donated = amount necessary for the household to get thru the next week = the number of farmers in the household
+                numOfFarmers = thePoors.get(i).farmerList.size();
+                householdList.get(mostFood).foodStores -= numOfFarmers;
+                thePoors.get(i).foodStores += numOfFarmers;
             }
         }
     }
