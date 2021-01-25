@@ -34,6 +34,10 @@ public class Household {
                 foodStores -= 1; //units of food need to be decided
                 //also a calorie system probably needs to be implemented to cover diff b/w barley and wheat
             }
+            //there's a possibility that reduced foodstore becomes negative: MUST EXTERMINATE POSSIBILITY
+            if(foodStores < 0){
+                foodStores = 0;
+            }
         }
     }
     //using a 3 crop rotation system
@@ -91,13 +95,28 @@ public class Household {
     public void starvation(){
         //to model starvation, give a 1% chance of dying per week to everyone
         //later change to give children and elderly higher death chance
+
+        //We will store the dead farmers in this array, then kill them after iterating the list
+        ArrayList<Farmer> DeathNote = new ArrayList<>();
         for(Farmer f : farmerList){
             double rand = Math.random();
             System.out.println(rand);
-            if(rand < 0.01){
-                farmerList.remove(f);
-                System.out.println("Farmer " + f.id + " has died");
+                    /* ERROR
+                    This leads to the error: ConcurrentModificationException
+                    Java dont like to remove things from a list while iterating so i'm building a work around
+                    https://www.baeldung.com/java-concurrentmodificationexception
+                    if(rand < 0.01){
+                        System.out.println("Farmer " + f.id + " has died");
+                        farmerList.remove(f);
+                    }
+                    */
+            if(rand < 0.01){ //i made the chance of death higher for testing
+                System.out.println("Farmer " + f.id + " of Household " + id + " has died.");
+                DeathNote.add(f);
             }
+        }
+        for(Farmer Fred : DeathNote){
+            farmerList.remove(Fred); //GEETEM OUTTA HERE!
         }
     }
 }

@@ -11,16 +11,8 @@ public class Main {
         test.addFarmers(b);
 
         //Testing out town stuff
-        Town theTown = new Town(1,15);
+        Town theTown = new Town(1,5);
         theTown.AnnualTownFoodConsumption();
-        System.out.println();
-        System.out.println("Town Stats Before: ");
-        System.out.println();
-        theTown.gimmieTheTownFax();
-        System.out.println();
-        System.out.println("Managing starvations: ");
-        System.out.println();
-        theTown.manageStarvation();
         System.out.println();
         System.out.println("Town Stats After: ");
         System.out.println();

@@ -12,7 +12,7 @@ public class Town {
         this.id = id;
         this.householdList = new ArrayList<>();
 
-        int foodStore = 100; //the initial amount of food stored in each household
+        int foodStore = 30; //the initial amount of food stored in each household
 
         //create a bunch of household, household variables right now are asserted randomly
         for(int i = 0; i < numHouseholds; i++){
@@ -74,9 +74,18 @@ public class Town {
                 town_harvest(1);
             if(i == 40)
                 town_sow("winter");
+
+            //LOGGING
+            System.out.println();System.out.println("Town Stats Before: "); System.out.println();gimmieTheTownFax();
+            System.out.println(); System.out.println("Managing starvations: "); System.out.println();
+            //=======
+
+            //manage starving households
+            manageStarvation();
+            //take account deaths on account of starvations
+            town_starvation();
             //renewing labor pool
             town_renewLaborForAllFarmers(); //UNIONIZE_THE_WORKERS jk we feudalistic, increase the tithe i want a new carpet
-            //NEED TO MAKE A STARVATION FUNCTION
 
 
             //this is the code in main i just adpated the action to apply to the whole village
@@ -155,6 +164,14 @@ public class Town {
             }
         }
     }
+    private void town_starvation(){
+        //identify all the households at 0 food
+        ArrayList<Household> thePoors = identifyStarvation();
+        //check to see if anyone died
+        for(int i = 0; i < thePoors.size(); i++){
+            thePoors.get(i).starvation();
+        }
+    }
 
     public ArrayList<Household> identifyStarvation(){ //identifies the households that are starving
         ArrayList<Household> starving = new ArrayList<>();
@@ -163,18 +180,6 @@ public class Town {
                 starving.add(householdList.get(i));
             }
         }
-
-        //outputs the details of the starving households
-        System.out.println("The Welfare List: ");
-        for(int i = 0; i < starving.size(); i++) {
-            System.out.println("Household: " + starving.get(i).id);
-            System.out.println(" foodstored: " + starving.get(i).foodStores);
-        }
-        System.out.println();
-        /*
-        System.out.println("Household: " + starving.get(indexMaxFoodstore(starving)).id);
-        System.out.println(" foodstored: " + starving.get(indexMaxFoodstore(starving)).foodStores);
-        */
         return starving;
     }
 
@@ -193,45 +198,40 @@ public class Town {
     public void manageStarvation(){
         //identify starvation
         ArrayList<Household> thePoors = identifyStarvation();
+
+        //LOGGING
+            //outputs the details of the starving households
+        System.out.println("The Welfare List: ");
+        for(int i = 0; i < thePoors.size(); i++) {
+            System.out.println("Household: " + thePoors.get(i).id);
+            System.out.println(" foodstored: " + thePoors.get(i).foodStores);
+        }
+        System.out.println();
+        //=======
+
+
         int food_theOnePercent = 0; //the largest foodstore in town
         int numOfFarmers = 0; //number of farmers in a household; a variable we'll use later
         int mostFood = 0; //the index of the household with the most food stored
         int numTimestoRepeat = thePoors.size();
 
-        /* //old algorithm i'll leave it here for now i guess...
         //loop through the list of starving households
         for(int i = 0; i < numTimestoRepeat; i++){
             //find the max amount from the non-starving
             mostFood = indexMaxFoodstore(householdList);
             food_theOnePercent = householdList.get(mostFood).foodStores;
-            System.out.println("Wealthy Household: " + householdList.get(mostFood).id);
-            System.out.println(" foodstored: " + householdList.get(mostFood).foodStores);
-            //find the max amount from starvation (the largest negative number, smallest defecit to close)
-            leastStarving = indexMaxFoodstore(thePoors);
-            food_oneOfThePoors = thePoors.get(leastStarving).foodStores;
-            System.out.println("Poor Household: " + thePoors.get(leastStarving).id);
-            System.out.println(" foodstored: " + thePoors.get(leastStarving).foodStores);
-            //check if the highest household is able to fill the deficit
-            if(food_theOnePercent >= Math.abs(food_oneOfThePoors)){ //Math.abs() comes from the imported lib
-                // update the foodstore values
-                householdList.get(mostFood).foodStores += food_oneOfThePoors;
-                thePoors.get(leastStarving).foodStores = 0;
-                thePoors.remove(leastStarving);
-            }
-        }
-        */
 
-        //loop through the list of starving households
-        for(int i = 0; i < numTimestoRepeat; i++){
-            //find the max amount from the non-starving
-            mostFood = indexMaxFoodstore(householdList);
-            food_theOnePercent = householdList.get(mostFood).foodStores;
+
+            //LOGGING
             System.out.println("Wealthy Household: " + householdList.get(mostFood).id);
             System.out.println(" foodstored: " + householdList.get(mostFood).foodStores);
             System.out.println("Poor Household: " + thePoors.get(i).id);
             System.out.println(" foodstored: " + thePoors.get(i).foodStores);
+            //=======
+
+
             //check if the highest household is able to fill the deficit
-            if(food_theOnePercent >= 50){
+            if(food_theOnePercent >= 30){
                 //***using 50 as placeholder, assuming a household with less than 50 wouldn't be willing to share
                 //***we can make a more sophisticated  model that looks at the the projected food use per household
 
@@ -240,6 +240,13 @@ public class Town {
                 numOfFarmers = thePoors.get(i).farmerList.size();
                 householdList.get(mostFood).foodStores -= numOfFarmers;
                 thePoors.get(i).foodStores += numOfFarmers;
+
+                //LOGGING
+                System.out.print("    Wealthy Household: " + householdList.get(mostFood).id);
+                System.out.println("     updated foodstored: " + householdList.get(mostFood).foodStores);
+                System.out.print("    Poor Household: " + thePoors.get(i).id);
+                System.out.println("     updated foodstored: " + thePoors.get(i).foodStores);
+                //=======
             }
         }
     }
