@@ -4,5 +4,12 @@ public class Field {
     double fieldUsage;
     double fertility;
 
-    //you should probably initialize these to a default!!
+    public Field(int size){
+        this.size = size;
+    }
+
+    public Field(Crops type, int size){
+        this.type = type;
+        this.size = size;
+    }
 }

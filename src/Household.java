@@ -20,12 +20,9 @@ public class Household {
         this.foodStores = foodStores;
         this.farmerList = new ArrayList<>();
         this.fields = new ArrayList<>();
-        Field field1 = new Field();
-        field1.size = field1Size;
-        Field field2 = new Field();
-        field2.size = field2Size;
-        Field field3 = new Field();
-        field3.size = field3Size;
+        Field field1 = new Field(field1Size);
+        Field field2 = new Field(field2Size);
+        Field field3 = new Field(field3Size);
         fields.add(field1);
         fields.add(field2);
         fields.add(field3);
@@ -78,9 +75,9 @@ public class Household {
     public void harvest(Field field){
         //only implemented for one field, possibly split into 2 harvests?
         Random random = new Random();
-        double weather = random.nextGaussian() * 0.2 + 1; //replace with more realistic distribution later
+        double weather = random.nextGaussian() * 0.1 + 1; //replace with more realistic distribution later
         int harvestedCrops = 0;
-        harvestedCrops += (int) Math.round(field.size * 10 * weather * field.fieldUsage * field.fertility);
+        harvestedCrops += (int) Math.round(field.size * 18 * weather * field.fieldUsage * field.fertility);
         harvestedCrops = (int) Math.round(0.9 * harvestedCrops); //Church tithes
         foodStores += harvestedCrops;
     }
@@ -90,7 +87,7 @@ public class Household {
         //possibly put manuring under this function
 
         Random random = new Random();
-        double fertility = random.nextGaussian() * 0.2 + 1; //replace with more realistic distribution later
+        double fertility = random.nextGaussian() * 0.1 + 1; //replace with more realistic distribution later
         field.fertility = fertility;
     }
 
@@ -125,12 +122,12 @@ public class Household {
             farmerList.remove(Fred); //GETEEM OUTTA HERE!
         }
     }
-    public void graphFood(){
+    public void graphFood(int x, int y){ //set window location
 
         //generates a bar graph object, and the following functions are display parameters
         DisplayFoodStoresGraph example = new DisplayFoodStoresGraph("plot of food stored", foodStoreList);
-        example.setSize( 1200, 400);
-        example.setLocationRelativeTo(null);
+        example.setSize( 600, 400);
+        example.setLocation(x, y);
         example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         example.setVisible(true);
     }

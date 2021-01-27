@@ -7,3 +7,9 @@ Open questions
 - What were large landowners likely to be farming. What population did the manor usually contain?
 - How did the process of plowing actually work? What downsides were there to plowing off peak? What if you plowed without a plow team?
 - Would 3 field crop rotation fields be equivalent size?
+- How much food would a lord have on hand vs wealth? How much would his household consume?
+
+To Do
+
+refactor graphing to be separate classes
+refactor field sow, harvest etc to be outside of household

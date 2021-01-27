@@ -39,7 +39,7 @@ public class DisplayFoodStoresGraph extends JFrame {
     }
 
 
-    //prepares and returns a Dataset object using the vector of foodstores per week
+    //prepares and returns a Dataset object using the vector of food stores per week
     //week identified by index
     private CategoryDataset prepDataset(Vector<Integer> foodPerWeek) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -53,7 +53,6 @@ public class DisplayFoodStoresGraph extends JFrame {
             else if ( i < 52*0.75){season = "summer";}
             else{ season = "fall";}
 
-            System.out.println(foodPerWeek.elementAt(i) + " " + i);
             dataset.addValue(foodPerWeek.elementAt(i),season,week);
         }
         return dataset;

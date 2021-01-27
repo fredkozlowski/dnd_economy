@@ -10,7 +10,7 @@ public class Manor {
     ArrayList<Household> householdList;
     boolean plowTeam; //Scheduling must be determined. Very important to handle separately as capital
 
-    public Manor(int id, int foodStores, boolean plowTeam){
+    public Manor(int id, int population, int foodStores, boolean plowTeam){
         this.id = id;
         this.foodStores = foodStores;
         this.fieldList = new ArrayList<>();
