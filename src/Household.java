@@ -1,11 +1,15 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class Household {
     int id;
     int foodStores;
     ArrayList<Farmer> farmerList; //refactor to be person list, with different types inside
     ArrayList<Field> fields; //unit tbd
+    Vector<Integer> foodStoreList = new Vector<>(); //vector to store the food stored in the household and passed to the plotting class
+
     /*int cropRotation; //ranges from 0 to 2 and is index of fallow field in fieldSizes array
                       //the next will be spring sowing and after winter sowing, will loop over
      */
@@ -34,11 +38,13 @@ public class Household {
                 foodStores -= 1; //units of food need to be decided
                 //also a calorie system probably needs to be implemented to cover diff b/w barley and wheat
             }
-            //there's a possibility that reduced foodstore becomes negative: MUST EXTERMINATE POSSIBILITY
+            //there's a possibility that reduced food store becomes negative: MUST EXTERMINATE POSSIBILITY
             if(foodStores < 0){
                 foodStores = 0;
             }
         }
+        if(foodStoreList.size() < 52)
+            foodStoreList.add(foodStores);
     }
     //using a 3 crop rotation system
 
@@ -116,7 +122,16 @@ public class Household {
             }
         }
         for(Farmer Fred : DeathNote){
-            farmerList.remove(Fred); //GEETEM OUTTA HERE!
+            farmerList.remove(Fred); //GETEEM OUTTA HERE!
         }
+    }
+    public void graphFood(){
+
+        //generates a bar graph object, and the following functions are display parameters
+        DisplayFoodStoresGraph example = new DisplayFoodStoresGraph("plot of food stored", foodStoreList);
+        example.setSize( 1200, 400);
+        example.setLocationRelativeTo(null);
+        example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        example.setVisible(true);
     }
 }

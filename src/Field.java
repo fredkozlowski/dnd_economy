@@ -4,5 +4,5 @@ public class Field {
     double fieldUsage;
     double fertility;
 
-    //you should probably initialize these to a default  !!
+    //you should probably initialize these to a default!!
 }

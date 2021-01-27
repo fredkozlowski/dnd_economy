@@ -14,10 +14,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class DisplayFoodStores_Bar extends JFrame {
+public class DisplayFoodStoresGraph extends JFrame {
 
     //build the chart
-    public DisplayFoodStores_Bar(String appTitle, Vector<Integer> foodPerWeek) {
+    public DisplayFoodStoresGraph(String appTitle, Vector<Integer> foodPerWeek) {
         super(appTitle);
         // Create Dataset
         CategoryDataset dataset = prepDataset(foodPerWeek);
@@ -46,13 +46,14 @@ public class DisplayFoodStores_Bar extends JFrame {
         String week = "";
         String season = ""; //thought this might be useful to display
         //we will have to add extra features for variability of seasons
-        for(int i = 0; i <= 52; i++){
+        for(int i = 0; i < foodPerWeek.size(); i++){
             week = String.valueOf(i);
             if (i < 52/4) {season = "winter";}
             else if (i < 52/2) {season = "spring";}
             else if ( i < 52*0.75){season = "summer";}
             else{ season = "fall";}
 
+            System.out.println(foodPerWeek.elementAt(i) + " " + i);
             dataset.addValue(foodPerWeek.elementAt(i),season,week);
         }
         return dataset;
