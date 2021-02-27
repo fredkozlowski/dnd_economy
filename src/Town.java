@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
+//Town should be renamed to Village
 
 public class Town {
     int id; //name of town
@@ -27,6 +27,7 @@ public class Town {
             int field3 = ThreadLocalRandom.current().nextInt(1, 10 + 1);
             Household house = new Household(i, foodStore, field1, field2, field3);
             householdList.add(house);
+            manor.householdList.add(house);
 
             //create a random number of farmers for each house (up to 6)
             int numOfFarmers = ThreadLocalRandom.current().nextInt(1, 6 + 1);
@@ -229,7 +230,4 @@ public class Town {
             }
         }
     }
-
-
-
 }

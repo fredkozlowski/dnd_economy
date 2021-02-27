@@ -15,6 +15,7 @@ public class Manor {
         this.foodStores = foodStores;
         this.fieldList = new ArrayList<>();
         this.livestockList = new ArrayList<>();
+        this.householdList = new ArrayList<>();
         this.plowTeam = plowTeam;
     }
 
@@ -32,8 +33,10 @@ public class Manor {
     public void collectTax(){
         for(int i = 0; i < householdList.size(); i++){
             double temp = householdList.get(i).foodStores * .15; //assume 15% tax rate
-            householdList.get(i).foodStores -= temp;
-            foodStores += temp;
+            if(householdList.get(i).foodStores > temp) {
+                householdList.get(i).foodStores -= temp;
+                foodStores += temp;
+            }
         }
     }
 

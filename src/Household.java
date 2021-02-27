@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
+import java.util.Vector; //refactor to remove Vector
 
 public class Household {
     int id;
