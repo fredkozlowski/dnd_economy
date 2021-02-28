@@ -1,13 +1,17 @@
+import Graphing.DisplayTownFoodGraph;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 //Town should be renamed to Village
 
-public class Town {
+public class Village {
     int id; //name of town
     ArrayList<Household> householdList; //list of households
     Manor manor;
+    ArrayList<Integer> foodStoreList = new ArrayList<>(); //vector to store the food stored in the household and passed to the plotting class
 
-    public Town(int id, int numHouseholds){
+    public Village(int id, int numHouseholds){
         this.id = id;
         this.householdList = new ArrayList<>();
 
@@ -97,10 +101,14 @@ public class Town {
 
     //all the household actions are adapted to be applied to all houses in this town
     private void townConsume(){
+        int food = 0;
         for(int i = 0; i < householdList.size(); i++){
             householdList.get(i).consumeFood();
+            food += householdList.get(i).foodStores;
         }
         manor.foodStores -= manor.population;
+        food += manor.foodStores;
+        foodStoreList.add(food);
     }
     private void townPlow(){
         for(int i = 0; i < householdList.size(); i++){
@@ -229,5 +237,14 @@ public class Town {
                 }
             }
         }
+    }
+
+    public void graphFood(int x, int y){
+        //generates a bar graph object, and the following functions are display parameters
+        DisplayTownFoodGraph graph = new DisplayTownFoodGraph("plot of food in town", foodStoreList);
+        graph.setSize( 600, 400);
+        graph.setLocation(x, y);
+        graph.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        graph.setVisible(true);
     }
 }

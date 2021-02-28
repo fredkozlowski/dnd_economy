@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Region {
-    ArrayList<Town> townList;
+    ArrayList<Village> villageList;
     public Region(){
-        this.townList = new ArrayList<>();
+        this.villageList = new ArrayList<>();
     }
 
     public void gimmeTheRegionFax(){
-        for(Town town : townList) {
-            town.AnnualTownFoodConsumption();
+        for(Village village : villageList) {
+            village.AnnualTownFoodConsumption();
             System.out.println();
-            System.out.println("Town " + town.id + " Stats After: ");
+            System.out.println("Town " + village.id + " Stats After: ");
             System.out.println();
-            town.gimmeTheTownFax();
+            village.gimmeTheTownFax();
         }
     }
 }

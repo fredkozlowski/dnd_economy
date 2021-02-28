@@ -1,3 +1,4 @@
+package Graphing;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -7,17 +8,16 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
 import java.awt.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class DisplayFoodStoresGraph extends JFrame {
 
     //build the chart
-    public DisplayFoodStoresGraph(String appTitle, Vector<Integer> foodPerWeek) {
+    public DisplayFoodStoresGraph(String appTitle, ArrayList<Integer> foodPerWeek) {
         super(appTitle);
         // Create Dataset
         CategoryDataset dataset = prepDataset(foodPerWeek);
@@ -41,7 +41,7 @@ public class DisplayFoodStoresGraph extends JFrame {
 
     //prepares and returns a Dataset object using the vector of food stores per week
     //week identified by index
-    private CategoryDataset prepDataset(Vector<Integer> foodPerWeek) {
+    private CategoryDataset prepDataset(ArrayList<Integer> foodPerWeek) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String week = "";
         String season = ""; //thought this might be useful to display
@@ -53,7 +53,7 @@ public class DisplayFoodStoresGraph extends JFrame {
             else if ( i < 52*0.75){season = "summer";}
             else{ season = "fall";}
 
-            dataset.addValue(foodPerWeek.elementAt(i),season,week);
+            dataset.addValue(foodPerWeek.get(i),season,week);
         }
         return dataset;
     }

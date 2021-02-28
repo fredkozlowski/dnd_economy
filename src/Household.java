@@ -1,14 +1,15 @@
+import Graphing.DisplayFoodStoresGraph;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector; //refactor to remove Vector
 
 public class Household {
     int id;
     int foodStores;
     ArrayList<Farmer> farmerList; //refactor to be person list, with different types inside
     ArrayList<Field> fields; //unit tbd
-    Vector<Integer> foodStoreList = new Vector<>(); //vector to store the food stored in the household and passed to the plotting class
+    ArrayList<Integer> foodStoreList = new ArrayList<>(); //vector to store the food stored in the household and passed to the plotting class
 
     /*int cropRotation; //ranges from 0 to 2 and is index of fallow field in fieldSizes array
                       //the next will be spring sowing and after winter sowing, will loop over
@@ -123,12 +124,11 @@ public class Household {
         }
     }
     public void graphFood(int x, int y){ //set window location
-
         //generates a bar graph object, and the following functions are display parameters
-        DisplayFoodStoresGraph example = new DisplayFoodStoresGraph("plot of food stored", foodStoreList);
-        example.setSize( 600, 400);
-        example.setLocation(x, y);
-        example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        example.setVisible(true);
+        DisplayFoodStoresGraph graph = new DisplayFoodStoresGraph("plot of food stored", foodStoreList);
+        graph.setSize( 600, 400);
+        graph.setLocation(x, y);
+        graph.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        graph.setVisible(true);
     }
 }

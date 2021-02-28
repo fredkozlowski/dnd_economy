@@ -12,4 +12,5 @@ Open questions
 To Do
 
 refactor graphing to be separate classes
+    possibly move the prep dataset method out of graphing and into the class calling it
 refactor field sow, harvest etc to be outside of household
