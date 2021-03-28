@@ -5,9 +5,7 @@ In Dungeons & Dragons, the price list is set in the back of the Player's Handboo
 since the players will influence local prices based on their actions. In order to properly simulate the local 
 economy, we have chosen to begin with grain prices, which in a pre-modern economy are a good proxy for labor cost 
 which in turn dictates other prices. We're using historical reference material relating to the ~16th Century in Western 
-Europe (chosen for similarity to most D&D settings) such as [acoup.blog](https://acoup.
-blog/2020/07/24/collections-bread-how-did-they-make-it-part-i-farmers/) and [Fernand Braudel's work](https://www.
-ucpress.edu/book/9780520081154/civilization-and-capitalism-15th-18th-century-vol-ii) on historical markets to 
+Europe (chosen for similarity to most D&D settings) such as [acoup.blog](http://acoup.blog/2020/07/24/collections-bread-how-did-they-make-it-part-i-farmers/) and [Fernand Braudel's work](http://www.ucpress.edu/book/9780520081154/civilization-and-capitalism-15th-18th-century-vol-ii) on historical markets to 
 provide some authenticity to the results.
 
 An example use case -
