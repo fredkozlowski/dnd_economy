@@ -1,9 +1,17 @@
 import java.util.ArrayList;
 
-public class Region {
+public class Region { //implemented weighted graph as adjacency matrix
     ArrayList<Village> villageList;
-    public Region(){
-        this.villageList = new ArrayList<>();
+    double[][] distances;
+    public Region(ArrayList<Village> villageList){
+        this.villageList = villageList; //currently must be immutable
+        this.distances = new double[villageList.size()][villageList.size()];
+    }
+
+    public void populateDistances(int villageCount, ArrayList<Integer> distanceList){
+        for(int i = 0; i < villageList.size(); i++){
+            distances[villageCount][i] = distanceList.get(i);
+        }
     }
 
     public void gimmeTheRegionFax(){

@@ -1,11 +1,15 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
 
-        Region region = new Region();
+
         Village village1 = new Village(1,4);
-        region.villageList.add(village1);
         Village village2 = new Village(2,5);
-        region.villageList.add(village2);
+        ArrayList<Village> villageList = new ArrayList<>();
+        villageList.add(village1);
+        villageList.add(village2);
+        Region region = new Region(villageList);
         region.gimmeTheRegionFax();
 
         int x = 30;
@@ -23,5 +27,7 @@ public class Main {
         village1.graphFood(x, y);
         village2.graphFood(x + 30, y + 30);
         //to do refactor graphing to be separate class outside of household, to be used on manor as well, if possible
+
+        Merchant merchant = new Merchant(111);
     }
 }

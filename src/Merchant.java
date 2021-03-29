@@ -13,7 +13,7 @@ public class Merchant extends Person{
         this.wallet = 100; //need to decide what currency to use
     }
 
-    public void trade(int idToTradeWith){
+    public void trade(Person tradingWith, Crops object){ //probably extend later past just crops
         return;
     }
 
