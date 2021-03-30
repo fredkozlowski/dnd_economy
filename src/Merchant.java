@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Merchant extends Person{
 
-    ArrayList<Crops> inventory;
+    ArrayList<Integer> inventory;
     int location; //id of current location
     int wallet; //What's in your wallet?
 
@@ -13,8 +13,12 @@ public class Merchant extends Person{
         this.wallet = 100; //need to decide what currency to use
     }
 
-    public void trade(Person tradingWith, Crops object){ //probably extend later past just crops
-        return;
+    public int trade(Manor tradingWith, Crops object){ //probably extend later past just crops
+        Trading.trade(this, tradingWith, object);
+        if(wallet == 0 && inventory.isEmpty()){
+            return -1; //set merchant to null
+        }
+        return 0;
     }
 
     public int travel(int idToVisit) { //returns length of time it takes to get there

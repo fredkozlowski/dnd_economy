@@ -74,6 +74,7 @@ public class Village {
         for(int i = 0; i < 52; i++){
 
             //actions
+            manor.updateHarvest();
             townConsume();
             if(i == 12)
                 townPlow();

@@ -29,5 +29,6 @@ public class Main {
         //to do refactor graphing to be separate class outside of household, to be used on manor as well, if possible
 
         Merchant merchant = new Merchant(111);
+        merchant.trade(village1.manor, Crops.Barley);
     }
 }

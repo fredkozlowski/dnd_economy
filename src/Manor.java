@@ -4,6 +4,7 @@ import java.util.Random;
 public class Manor {
     int id;
     int foodStores;
+    int lastHarvest; //days since last harvest
     int population;
     ArrayList<Field> fieldList;
     ArrayList<Livestock> livestockList;
@@ -29,8 +30,13 @@ public class Manor {
             }
         }
     }
+    //possibly refactor since shared with household
+    public void updateHarvest(){
+        lastHarvest += 1;
+    }
 
     public void collectTax(){
+        lastHarvest = 0;
         for(int i = 0; i < householdList.size(); i++){
             double temp = householdList.get(i).foodStores * .15; //assume 15% tax rate
             if(householdList.get(i).foodStores > temp) {
