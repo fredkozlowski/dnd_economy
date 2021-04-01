@@ -24,4 +24,10 @@ public class Merchant extends Person{
     public int travel(int idToVisit) { //returns length of time it takes to get there
         return 0;
     }
+
+    public void showMeSomeID(){ //print merchant info
+        System.out.println("My Merchant License No.:"+this.id);
+        System.out.println("Wallet:" + this.wallet);
+        System.out.println("Knapsack:"+ this.inventory);
+    }
 }

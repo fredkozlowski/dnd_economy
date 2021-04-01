@@ -105,15 +105,6 @@ public class Household {
         for(Farmer f : farmerList){
             double rand = Math.random();
             System.out.println(rand);
-                    /* ERROR
-                    This leads to the error: ConcurrentModificationException
-                    Java dont like to remove things from a list while iterating so i'm building a work around
-                    https://www.baeldung.com/java-concurrentmodificationexception
-                    if(rand < 0.01){
-                        System.out.println("Farmer " + f.id + " has died");
-                        farmerList.remove(f);
-                    }
-                    */
             if(rand < 0.01){ //i made the chance of death higher for testing
                 System.out.println("Farmer " + f.id + " of Household " + id + " has died.");
                 DeathNote.add(f);
