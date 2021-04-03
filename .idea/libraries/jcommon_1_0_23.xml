@@ -2,8 +2,10 @@
   <library name="jcommon-1.0.23">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../jfreechart-1.0.19/lib/jcommon-1.0.23.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/jfreechart-1.0.19/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/Downloads/jfreechart-1.0.19/lib" recursive="false" />
   </library>
 </component>
