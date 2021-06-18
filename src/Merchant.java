@@ -9,6 +9,7 @@ public class Merchant extends Person{
     int location; //id of current location
     int wallet; //What's in your wallet?
     ArrayList<Integer> walletDataset;
+    double prevPrice;
 
     public Merchant(int id){
         super(id);

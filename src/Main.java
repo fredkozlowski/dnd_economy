@@ -16,12 +16,15 @@ public class Main {
         village1.graphFood(x, y);
         village2.graphFood(x + 30, y + 30);
 
+        /* this structure is just for testing to ensure buy / sell */
+
         Merchant merchant = new Merchant(111);
         for(int i = 0; i <= 52; i++) {
             if(i == 30){
                 merchant.trade(village1.manor, Crops.Barley);
             }
             if(i == 40){
+                village2.manor.foodStores -= village2.manor.foodStores - 3; //simulating starvation to force a trade for testing
                 merchant.trade(village2.manor, Crops.Barley);
             }
             merchant.updateWallet();
